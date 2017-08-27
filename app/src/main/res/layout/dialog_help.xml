@@ -8,7 +8,8 @@
     android:minHeight="240dp"
     android:layout_gravity="bottom"
     android:paddingBottom="50dp"
-    android:gravity="center_vertical">
+    android:gravity="center_vertical"
+    >
 
     <TextView
         android:layout_width="match_parent"
@@ -19,21 +20,52 @@
         android:text="Enigma"
         android:textSize="15sp"
         android:layout_marginBottom="5dp"/>
-    <Button
-        android:id="@+id/keytype1"
+
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="#1E90FF"
-        android:layout_margin="2dp"
-        android:text="How to encrypt?" />
+        android:id="@+id/htEnc"
+        >
+        <Button
+            android:id="@+id/keytype11"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#1E90FF"
+            android:layout_margin="2dp"
+            android:text="How to encrypt?" />
 
+       <TextView
+            android:gravity="center"
+            android:id="@+id/keytype12"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#1E90FF"
+            android:layout_margin="2dp"
+            android:text="@string/how_to_enc" />
+    </FrameLayout>
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/htDec">
     <Button
-        android:id="@+id/keytype2"
+        android:id="@+id/keytype21"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="#1E90FF"
         android:layout_margin="2dp"
         android:text="How to decrypt?" />
+        <TextView
+            android:gravity="center"
+            android:id="@+id/keytype22"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#1E90FF"
+            android:layout_margin="2dp"
+            android:text="@string/how_to_dec" />
+    </FrameLayout>
+
 
     <Button
         android:id="@+id/keytype3"

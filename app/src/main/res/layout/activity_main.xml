@@ -42,20 +42,22 @@
         android:layout_height="50dp"
         android:layout_alignParentTop="true"
         android:background="#000"
-        tools:mockup_opacity=""
         android:visibility="visible"
         tools:layout_editor_absoluteX="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guidelinebotbot" />
 
-    <EditText
+    <TextView
         android:gravity="top"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:id="@+id/textBot"
         android:padding="10dp"
+        android:textIsSelectable="true"
         android:background="@drawable/edittextfile"
         android:layout_marginTop="10dp"
+        android:textSize="16sp"
+        android:textColor="#FFF"
         android:layout_marginRight="8dp"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginLeft="8dp"
@@ -91,6 +93,7 @@
             android:id="@+id/singledate"
             app:picker_curved="true"
             app:picker_cyclic="true"
+            app:picker_textSize="20sp"
             app:picker_visibleItemCount="3"
             android:layout_gravity="center"
             />
@@ -120,6 +123,7 @@
             android:id="@+id/picker1"
             android:layout_width="80dp"
             android:layout_height="wrap_content"
+
             >
 
         </NumberPicker>
@@ -205,6 +209,8 @@
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
         android:background="@drawable/edittextfile"
+        android:textSize="16sp"
+        android:textColor="#FFF"
         android:gravity="top"
         android:padding="10dp"
         app:layout_constraintBottom_toTopOf="@+id/guideline32"

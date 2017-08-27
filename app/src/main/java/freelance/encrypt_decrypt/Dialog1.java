@@ -1,26 +1,20 @@
 package freelance.encrypt_decrypt;
 
 import android.app.Activity;
-import android.app.Dialog;
 import android.app.DialogFragment;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
-import android.graphics.ColorFilter;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
-
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.TextInputLayout;
-import android.support.v4.content.ContextCompat;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 
 /**
  * Created by na3aga on 07.08.17.
@@ -28,10 +22,10 @@ import android.widget.LinearLayout;
 
 public class Dialog1 extends DialogFragment implements View.OnClickListener {
 
-    Activity mainAct;
-    private FrameLayout date$time;
-    private FrameLayout numSpinner;
-    private TextInputLayout textPicker;
+    final Activity mainAct;
+    final private FrameLayout date$time;
+    final private FrameLayout numSpinner;
+    final private TextInputLayout textPicker;
 
 
     @Nullable
