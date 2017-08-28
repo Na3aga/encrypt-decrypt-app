@@ -92,7 +92,39 @@
         tools:layout_editor_absoluteY="68dp"
         tools:layout_editor_absoluteX="0dp" />
 
+    <Switch
+        android:id="@+id/switch1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@+id/rectangleMenu1"
+        app:layout_constraintBottom_toBottomOf="@+id/rectangleMenu1"
+        app:layout_constraintRight_toLeftOf="@+id/guidelineV2"/>
 
+    <Switch
+        android:id="@+id/switch2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        app:layout_constraintTop_toTopOf="@+id/rectangleMenu2"
+        app:layout_constraintBottom_toBottomOf="@+id/rectangleMenu2"
+        app:layout_constraintRight_toLeftOf="@+id/guidelineV2"/>
+
+    <Switch
+        android:id="@+id/switch3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/AppTheme"
+
+        app:layout_constraintTop_toTopOf="@+id/rectangleMenu3"
+        app:layout_constraintBottom_toBottomOf="@+id/rectangleMenu3"
+        app:layout_constraintRight_toLeftOf="@+id/guidelineV2"/>
+
+    <android.support.constraint.Guideline
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/guidelineV2"
+        app:layout_constraintGuide_percent="0.95"
+        android:orientation="vertical" />
 
 
 </android.support.constraint.ConstraintLayout>
