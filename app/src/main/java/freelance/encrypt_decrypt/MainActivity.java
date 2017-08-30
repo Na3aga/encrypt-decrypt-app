@@ -3,6 +3,7 @@ package freelance.encrypt_decrypt;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -40,7 +41,11 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
     private Dialog1 dialog1;
     private Dialog2 dialog2;
     private FrameLayout date$time,numSpinner;
+    private SingleDateAndTimePicker datePicker;
+    private NumberPicker pick1,pick2,pick3;
     private TextInputLayout textPicker;
+
+
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,9 +65,11 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
         Typeface typeFace = Typeface.createFromAsset(getAssets(), "COPRGTB.TTF");
         textView.setTypeface(typeFace);
 
+
         topText = (EditText) findViewById(R.id.textTop);
         botText = (TextView) findViewById(R.id.textBot);
-        botText.setText("text android");
+        botText.setText("http://lolpipec.com");
+//        Linkify.addLinks(botText, Linkify.ALL);
 
         ImageButton buttonAdd = (ImageButton) findViewById(R.id.imageButtonAdd);
         buttonAdd.setOnClickListener(this);
@@ -88,6 +95,7 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
         buttonCopy.setAlpha(124);
         buttonCopy.getBackground().setAlpha(0);
         ImageButton buttonShare = (ImageButton) findViewById(R.id.imageButtonSent);
+        buttonShare.setOnClickListener(this);
         buttonShare.setColorFilter(Color.WHITE);
         buttonShare.getBackground().setAlpha(0);
 
@@ -101,20 +109,19 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
         buttonHelp.setOnClickListener(this);
 
         date$time = (FrameLayout) findViewById(R.id.dateANDtime);
-        SingleDateAndTimePicker dateAndTimePicker = (SingleDateAndTimePicker) findViewById(R.id.singledate);
-        dateAndTimePicker.setSelectorColor(Color.TRANSPARENT);
+        datePicker= (SingleDateAndTimePicker) findViewById(R.id.singledate);
+        datePicker.setSelectorColor(Color.TRANSPARENT);
         mainLayer.removeView(date$time);
         numSpinner = (FrameLayout) findViewById(R.id.numPicker);
-        NumberPicker picker1,picker2,picker3;
-        picker1 = (NumberPicker) findViewById(R.id.picker1);
-        picker1.setMinValue(0);
-        picker1.setMaxValue(9);
-        picker2 = (NumberPicker) findViewById(R.id.picker2);
-        picker2.setMinValue(0);
-        picker2.setMaxValue(9);
-        picker3 = (NumberPicker) findViewById(R.id.picker3);
-        picker3.setMinValue(0);
-        picker3.setMaxValue(9);
+        pick1 = (NumberPicker) findViewById(R.id.picker1);
+        pick1.setMinValue(0);
+        pick1.setMaxValue(9);
+        pick2 = (NumberPicker) findViewById(R.id.picker2);
+        pick2.setMinValue(0);
+        pick2.setMaxValue(9);
+        pick3 = (NumberPicker) findViewById(R.id.picker3);
+        pick3.setMinValue(0);
+        pick3.setMaxValue(9);
         mainLayer.removeView(numSpinner);
         textPicker = (TextInputLayout) findViewById(R.id.textPicker);
         EditText editText = (EditText) findViewById(R.id.textKey);
@@ -126,13 +133,15 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
 
         dialog1 = new Dialog1(this,date$time,numSpinner,textPicker);
 
+
+
         SharedPreferences shref = getSharedPreferences("encdec",MODE_PRIVATE);
         lastKeyType = shref.getInt(LAST_KEY_TYPE,0);
         switch (lastKeyType){
             case 1: mainLayer.addView(date$time);break;
             case 2: mainLayer.addView(numSpinner);break;
             case 3: mainLayer.addView(textPicker);break;
-            default: mainLayer.addView(numSpinner);break;
+            case 0:lastKeyType = 2;mainLayer.addView(numSpinner);break;
         }
 
         Thread thread = new Thread(new MyRunnable());
@@ -174,14 +183,20 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
                 Toast toast = Toast.makeText(this, "Text coppied to clipboard!", Toast.LENGTH_SHORT);
                 toast.show(); break;
             case R.id.buttonMenu:
-                dialog1.show(getFragmentManager(),"dlg1"); break;
+                dialog1.show(getFragmentManager(),"dlg1");break;
             case R.id.buttonHelp:
                 dialog2 = null;
                 dialog2 = new Dialog2(this);
                 dialog2.show(getFragmentManager(),"dlg2");break;
             case R.id.imageButtonPlay :
                 try {
-                    botText.setText(AESCrypt.encrypt(textPicker.getEditText().getText().toString(),topText.getText().toString()));
+                    String key = "";
+                    switch (lastKeyType){
+                        case 1:key=getDateKey();
+                        case 2:key=getNumberKey();
+                        case 3:key=getStrokeKey();
+                    }
+                    botText.setText(AESCrypt.encrypt(key,topText.getText().toString()));
                 } catch (GeneralSecurityException e) {
                     e.printStackTrace();
                 }
@@ -195,7 +210,20 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
                 }
 
                 break;
+            case R.id.imageButtonX :
+                topText.setText("");
+                botText.setText("");
 
+                break;
+            case R.id.imageButtonSent :
+                Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+                sharingIntent.setType("text/plain");
+                String shareBody = botText.getText().toString();
+                sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "enigma");
+                sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
+                startActivity(Intent.createChooser(sharingIntent, "sent with"));
+
+                break;
 
         }
     }
@@ -245,13 +273,6 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
     }
     @Override
     protected void onDestroy() {
-        if(date$time.isShown()){
-            lastKeyType = 1;
-        }else if(numSpinner.isShown()){
-            lastKeyType =2;
-        }else if(textPicker.isShown()){
-            lastKeyType = 3;
-        }
         mainLayer = null;
         topText = null;
         botText = null;
@@ -260,10 +281,27 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
         dialog1 = null;
         dialog2 = null;
         SharedPreferences shref = getSharedPreferences("encdec",MODE_PRIVATE);
-        SharedPreferences.Editor ed = shref.edit();
-        ed.putInt(LAST_KEY_TYPE,lastKeyType);
-        ed.apply();
+        shref.edit() .putInt(LAST_KEY_TYPE,lastKeyType).apply();
         super.onDestroy();
+    }
+    public void doPositiveClick(int value){
+        lastKeyType = value;
+    }
+    public void doNegativeClick(){
+
+    }
+    private String getDateKey(){
+        String key = Integer.toString(datePicker.getDate().getMonth())+"";
+         //TODO
+        return key;
+    }
+    private String getNumberKey(){
+        String key = Integer.toString(pick1.getValue())+"-"+Integer.toString(pick2.getValue())+"-"+Integer.toString(pick3.getValue());
+        return key;
+    }
+    private String getStrokeKey(){
+        String key = textPicker.getEditText().getText().toString();
+        return key;
     }
 
 }

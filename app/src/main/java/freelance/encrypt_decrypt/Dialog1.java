@@ -1,6 +1,7 @@
 package freelance.encrypt_decrypt;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.graphics.Color;
@@ -10,10 +11,10 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.TextInputLayout;
+import android.support.v7.app.AlertDialog;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
 /**
@@ -26,18 +27,29 @@ public class Dialog1 extends DialogFragment implements View.OnClickListener {
     final private FrameLayout date$time;
     final private FrameLayout numSpinner;
     final private TextInputLayout textPicker;
+    private int keytype;
 
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        // Get the layout inflater
+        LayoutInflater inflater = getActivity().getLayoutInflater();
+        // Inflate and set the layout for the dialog
+        // Pass null as the parent view because its going in the dialog layout
         View v = inflater.inflate(R.layout.activity_menu,null);
-        getDialog().getWindow().setGravity(Gravity.BOTTOM);
-        getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        // reference to the edittext
+
+
+
+        builder.setView(v);
+
+
+
         v.findViewById(R.id.enigmaTitle).setAlpha(0.4f);
         GradientDrawable gd = new GradientDrawable();
-        gd.setColor(Color.argb(96,255,255,255)); // Changes this drawbale to use a single color instead of a gradient
+        gd.setColor(Color.argb(100,255,255,255)); // Changes this drawbale to use a single color instead of a gradient
         gd.setCornerRadius(10);
         gd.setStroke(1, Color.argb(96,255,255,255));
         v.findViewById(R.id.keytype1).setBackground(gd);
@@ -46,9 +58,13 @@ public class Dialog1 extends DialogFragment implements View.OnClickListener {
         v.findViewById(R.id.keytype2).setOnClickListener(this);
         v.findViewById(R.id.keytype3).setBackground(gd);
         v.findViewById(R.id.keytype3).setOnClickListener(this);
-        v.findViewById(R.id.cancel).setBackground(gd);
-        v.findViewById(R.id.cancel).setOnClickListener(this);
-        return v;
+        v.findViewById(R.id.buttonOk).setBackground(gd);
+        v.findViewById(R.id.buttonOk).setOnClickListener(this);
+
+        Dialog dialog = builder.create();
+        dialog.getWindow().setGravity(Gravity.BOTTOM);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        return dialog;
     }
 
     @Override
@@ -73,7 +89,8 @@ public class Dialog1 extends DialogFragment implements View.OnClickListener {
                    ((ConstraintLayout)mainAct.findViewById(R.id.cnstrnt)).removeView(numSpinner);
                    ((ConstraintLayout)mainAct.findViewById(R.id.cnstrnt)).removeView(textPicker);
                    ((ConstraintLayout)mainAct.findViewById(R.id.cnstrnt)).addView(date$time);
-                   onDismiss(getDialog());
+                   keytype =1;
+                   ((MainActivity)getActivity()).doPositiveClick(keytype);
                    break;
 
                case R.id.keytype2:
@@ -82,7 +99,8 @@ public class Dialog1 extends DialogFragment implements View.OnClickListener {
                    ((ConstraintLayout)mainAct.findViewById(R.id.cnstrnt)).removeView(numSpinner);
                    ((ConstraintLayout)mainAct.findViewById(R.id.cnstrnt)).removeView(textPicker);
                    ((ConstraintLayout)mainAct.findViewById(R.id.cnstrnt)).addView(numSpinner);
-                   onDismiss(getDialog());
+                   keytype =2;
+                   ((MainActivity)getActivity()).doPositiveClick(keytype);
                    break;
                case R.id.keytype3:
 
@@ -90,11 +108,14 @@ public class Dialog1 extends DialogFragment implements View.OnClickListener {
                    ((ConstraintLayout)mainAct.findViewById(R.id.cnstrnt)).removeView(numSpinner);
                    ((ConstraintLayout)mainAct.findViewById(R.id.cnstrnt)).removeView(textPicker);
                    ((ConstraintLayout)mainAct.findViewById(R.id.cnstrnt)).addView(textPicker);
-                   onDismiss(getDialog());
+                   keytype =3;
+                   ((MainActivity)getActivity()).doPositiveClick(keytype);
                    break;
-               case R.id.cancel:
-                   getDialog().cancel();
+               case R.id.buttonOk:
+                   ((MainActivity)getActivity()).doPositiveClick(keytype);
+                   getDialog().dismiss();
                    break;
+
                default: break;
            }
     }

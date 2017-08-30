@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:id="@+id/dialog_menu"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:minWidth="300dp"
     android:minHeight="240dp"
-    android:paddingBottom="50dp"
+    android:paddingBottom="20dp"
     android:layout_gravity="bottom"
     android:gravity="center_vertical">
 
@@ -42,12 +44,18 @@
         android:textColor="#1E90FF"
         android:layout_margin="2dp"
         android:text="Stroke key" />
+
     <Button
-        android:layout_marginTop="15dp"
-        android:id="@+id/cancel"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="#1E90FF"
-        android:text="Cancel" />
+            android:id="@+id/buttonOk"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="2dp"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#1E90FF"
+            android:text="Ok"
+
+            />
+
 
 </LinearLayout>

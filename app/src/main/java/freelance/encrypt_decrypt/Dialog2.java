@@ -1,5 +1,6 @@
 package freelance.encrypt_decrypt;
 
+import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -9,10 +10,10 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.TextView;
@@ -29,15 +30,21 @@ public class Dialog2 extends DialogFragment implements View.OnClickListener {
     Context activityC;
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
-
+    public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        // Get the layout inflater
+        LayoutInflater inflater = getActivity().getLayoutInflater();
+        // Inflate and set the layout for the dialog
+        // Pass null as the parent view because its going in the dialog layout
         View v = inflater.inflate(R.layout.dialog_help,null);
-        getDialog().getWindow().setGravity(Gravity.BOTTOM);
-        getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        // reference to the edittext
+
+
+
+        builder.setView(v);
         v.findViewById(R.id.enigmaTitle).setAlpha(0.4f);
         GradientDrawable gd = new GradientDrawable();
-        gd.setColor(Color.argb(96,255,255,255)); // Changes this drawbale to use a single color instead of a gradient
+        gd.setColor(Color.argb(100,255,255,255)); // Changes this drawbale to use a single color instead of a gradient
         gd.setCornerRadius(10);
         gd.setStroke(1, Color.argb(96,255,255,255));
 
@@ -74,7 +81,10 @@ public class Dialog2 extends DialogFragment implements View.OnClickListener {
         cancel.setSingleLine(false);
         cancel.setBackground(gd);
         cancel.setOnClickListener(this);
-        return v;
+        Dialog dialog = builder.create();
+        dialog.getWindow().setGravity(Gravity.BOTTOM);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        return dialog;
     }
 
     @Override
