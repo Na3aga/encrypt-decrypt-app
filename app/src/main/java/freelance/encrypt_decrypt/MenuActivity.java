@@ -2,7 +2,6 @@ package freelance.encrypt_decrypt;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.text.util.Linkify;
 import android.widget.CompoundButton;
 import android.widget.ScrollView;
 import android.widget.Switch;
@@ -15,9 +14,9 @@ import android.widget.TextView;
 public class MenuActivity extends AppCompatActivity{
     TextView textView;
 
-    public MenuActivity(TextView textView) {
-        this.textView = textView;
-    }
+//    public MenuActivity(TextView textView) {
+//        this.textView = textView;
+//    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +34,7 @@ public class MenuActivity extends AppCompatActivity{
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 // в зависимости от значения isChecked выводим нужное сообщение
                 if (isChecked) {
-                    Linkify.addLinks(textView, Linkify.ALL);
+//                    Linkify.addLinks(textView, Linkify.ALL);
                 } else {
 
                 }

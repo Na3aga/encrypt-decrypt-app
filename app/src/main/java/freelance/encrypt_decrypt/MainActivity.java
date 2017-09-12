@@ -30,7 +30,7 @@ import java.security.GeneralSecurityException;
 import static android.content.ClipDescription.MIMETYPE_TEXT_PLAIN;
 
 
-public class MainActivity extends AppCompatActivity implements  View.OnClickListener{
+public class MainActivity extends AppCompatActivity implements  View.OnClickListener,SharedPreferences.OnSharedPreferenceChangeListener {
 
     private ConstraintLayout mainLayer;
     private EditText topText;
@@ -143,6 +143,9 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
             case 3: mainLayer.addView(textPicker);break;
             case 0:lastKeyType = 2;mainLayer.addView(numSpinner);break;
         }
+        shref.registerOnSharedPreferenceChangeListener(this);
+
+
 
         Thread thread = new Thread(new MyRunnable());
         thread.start();
@@ -226,6 +229,12 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
                 break;
 
         }
+    }
+
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+
+
     }
 
     private class MyRunnable implements Runnable {
