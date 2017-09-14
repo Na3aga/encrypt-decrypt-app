@@ -8,10 +8,12 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputFilter;
+import android.text.util.Linkify;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.widget.Button;
@@ -38,6 +40,13 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
     private Button buttonMenu, buttonHelp;
     private int lastKeyType = 0;
     private final String LAST_KEY_TYPE = "last_key_type";
+    private final String SETTING_1_KEY = "setting_1_key";
+    private int setting1key = 0;
+    private final String SETTING_2_KEY = "setting_2_key";
+    private int setting2key = 0;
+    private final String SETTING_3_KEY = "setting_3_key";
+    private int setting3key = 0;
+
     private Dialog1 dialog1;
     private Dialog2 dialog2;
     private FrameLayout date$time,numSpinner;
@@ -134,9 +143,12 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
         dialog1 = new Dialog1(this,date$time,numSpinner,textPicker);
 
 
-
-        SharedPreferences shref = getSharedPreferences("encdec",MODE_PRIVATE);
+        Context context = getApplicationContext();
+        SharedPreferences shref = PreferenceManager.getDefaultSharedPreferences(context);
         lastKeyType = shref.getInt(LAST_KEY_TYPE,0);
+        setting1key=shref.getInt(SETTING_1_KEY,0);
+        setting2key=shref.getInt(SETTING_2_KEY,0);
+        setting3key=shref.getInt(SETTING_3_KEY,0);
         switch (lastKeyType){
             case 1: mainLayer.addView(date$time);break;
             case 2: mainLayer.addView(numSpinner);break;
@@ -144,11 +156,13 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
             case 0:lastKeyType = 2;mainLayer.addView(numSpinner);break;
         }
         shref.registerOnSharedPreferenceChangeListener(this);
-
-
-
-        Thread thread = new Thread(new MyRunnable());
-        thread.start();
+        if (setting3key==1) {
+            Thread thread = new Thread(new MyRunnable());
+            thread.start();
+        }else{
+            buttonMenu.setAlpha(0);
+            buttonHelp.setAlpha(0);
+        }
 
     }
 
@@ -199,7 +213,11 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
                         case 2:key=getNumberKey();
                         case 3:key=getStrokeKey();
                     }
-                    botText.setText(AESCrypt.encrypt(key,topText.getText().toString()));
+                    if(setting1key == 0 ) {
+                        botText.setText(AESCrypt.encrypt(key, topText.getText().toString()));
+                    }else if(setting1key == 1) {
+                        botText.setText("enigma://" + AESCrypt.encrypt(key, topText.getText().toString()));
+                    }
                 } catch (GeneralSecurityException e) {
                     e.printStackTrace();
                 }
@@ -233,7 +251,20 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-
+       switch (key){
+           case SETTING_1_KEY: setting1key = sharedPreferences.getInt(key,0);
+               break;
+           case SETTING_2_KEY: setting2key = sharedPreferences.getInt(key,0);
+               if(setting2key==1){
+                   botText.setLinksClickable(true);
+                   Linkify.addLinks(botText, Linkify.ALL);
+               }else if(setting2key==0){
+                   botText.setLinksClickable(false);
+               }
+               break;
+           case SETTING_3_KEY: setting3key = sharedPreferences.getInt(key,0);
+               break;
+       }
 
     }
 
@@ -289,7 +320,7 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
         buttonHelp = null;
         dialog1 = null;
         dialog2 = null;
-        SharedPreferences shref = getSharedPreferences("encdec",MODE_PRIVATE);
+        SharedPreferences shref = PreferenceManager.getDefaultSharedPreferences(this);
         shref.edit() .putInt(LAST_KEY_TYPE,lastKeyType).apply();
         super.onDestroy();
     }
