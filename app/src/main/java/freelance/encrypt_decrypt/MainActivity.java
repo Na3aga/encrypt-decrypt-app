@@ -28,6 +28,8 @@ import com.github.florent37.singledateandtimepicker.SingleDateAndTimePicker;
 import com.scottyab.aescrypt.AESCrypt;
 
 import java.security.GeneralSecurityException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import static android.content.ClipDescription.MIMETYPE_TEXT_PLAIN;
 
@@ -77,8 +79,6 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
 
         topText = (EditText) findViewById(R.id.textTop);
         botText = (TextView) findViewById(R.id.textBot);
-        botText.setText("http://lolpipec.com");
-//        Linkify.addLinks(botText, Linkify.ALL);
 
         ImageButton buttonAdd = (ImageButton) findViewById(R.id.imageButtonAdd);
         buttonAdd.setOnClickListener(this);
@@ -120,7 +120,15 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
         date$time = (FrameLayout) findViewById(R.id.dateANDtime);
         datePicker= (SingleDateAndTimePicker) findViewById(R.id.singledate);
         datePicker.setSelectorColor(Color.TRANSPARENT);
-        mainLayer.removeView(date$time);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("d MMM y");
+        datePicker.setDayFormatter(dateFormat);
+        Date dateMin = new Date(70,0,0,0,0);
+        Date dateMax = new Date(300,0,0,0,0);
+        datePicker.setStepMinutes(1);
+        datePicker.setMinDate(dateMin);
+        datePicker.setMaxDate(dateMax);
+        datePicker.setIsAmPm(false);
+//        mainLayer.removeView(date$time);
         numSpinner = (FrameLayout) findViewById(R.id.numPicker);
         pick1 = (NumberPicker) findViewById(R.id.picker1);
         pick1.setMinValue(0);
@@ -149,12 +157,13 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
         setting1key=shref.getInt(SETTING_1_KEY,0);
         setting2key=shref.getInt(SETTING_2_KEY,0);
         setting3key=shref.getInt(SETTING_3_KEY,0);
-        switch (lastKeyType){
-            case 1: mainLayer.addView(date$time);break;
-            case 2: mainLayer.addView(numSpinner);break;
-            case 3: mainLayer.addView(textPicker);break;
-            case 0:lastKeyType = 2;mainLayer.addView(numSpinner);break;
-        }
+//        switch (lastKeyType){
+//            case 1: mainLayer.addView(date$time);break;
+//            case 2: mainLayer.addView(numSpinner);break;
+//            case 3: mainLayer.addView(textPicker);break;
+//            case 0: lastKeyType = 2;mainLayer.addView(numSpinner);break;
+//        }
+        botText.setText(datePicker.getMinDate().toString());
         shref.registerOnSharedPreferenceChangeListener(this);
         if (setting3key==1) {
             Thread thread = new Thread(new MyRunnable());
@@ -209,14 +218,15 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
                 try {
                     String key = "";
                     switch (lastKeyType){
-                        case 1:key=getDateKey();
-                        case 2:key=getNumberKey();
-                        case 3:key=getStrokeKey();
+                        case 1:key=getDateKey();break;
+                        case 2:key=getNumberKey();break;
+                        case 3:key=getStrokeKey();break;
                     }
                     if(setting1key == 0 ) {
                         botText.setText(AESCrypt.encrypt(key, topText.getText().toString()));
                     }else if(setting1key == 1) {
-                        botText.setText("enigma://" + AESCrypt.encrypt(key, topText.getText().toString()));
+                        botText.setText(key);
+//                        botText.setText("enigma://" + AESCrypt.encrypt(key, topText.getText().toString()));
                     }
                 } catch (GeneralSecurityException e) {
                     e.printStackTrace();
@@ -225,8 +235,21 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
                 break;
             case R.id.imageButtonSearch :
                 try {
-                    botText.setText(AESCrypt.decrypt(textPicker.getEditText().getText().toString(),topText.getText().toString()));
-                } catch (GeneralSecurityException e) {
+                String key = "";
+                switch (lastKeyType){
+                    case 1:key=getDateKey();break;
+                    case 2:key=getNumberKey();break;
+                    case 3:key=getStrokeKey();break;
+                }
+                String text = topText.getText().toString();
+                    if(text.length()>8) {
+                        String ls = text.substring(0, 9);
+                        if (ls.contains("enigma://")) {
+                            text = text.substring(9, text.length());
+                        }
+                    }
+                    botText.setText(AESCrypt.decrypt(key,text));
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
 
@@ -331,12 +354,13 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
 
     }
     private String getDateKey(){
-        String key = Integer.toString(datePicker.getDate().getMonth())+"";
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy-HH:mm");
+        String key = dateFormat.format(datePicker.getDate()).toString();
          //TODO
         return key;
     }
     private String getNumberKey(){
-        String key = Integer.toString(pick1.getValue())+"-"+Integer.toString(pick2.getValue())+"-"+Integer.toString(pick3.getValue());
+        String key = (pick1.getValue())+"-"+Integer.toString(pick2.getValue())+"-"+Integer.toString(pick3.getValue());
         return key;
     }
     private String getStrokeKey(){
