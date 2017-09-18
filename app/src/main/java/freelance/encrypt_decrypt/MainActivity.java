@@ -128,7 +128,7 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
         datePicker.setMinDate(dateMin);
         datePicker.setMaxDate(dateMax);
         datePicker.setIsAmPm(false);
-//        mainLayer.removeView(date$time);
+        mainLayer.removeView(date$time);
         numSpinner = (FrameLayout) findViewById(R.id.numPicker);
         pick1 = (NumberPicker) findViewById(R.id.picker1);
         pick1.setMinValue(0);
@@ -157,12 +157,12 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
         setting1key=shref.getInt(SETTING_1_KEY,0);
         setting2key=shref.getInt(SETTING_2_KEY,0);
         setting3key=shref.getInt(SETTING_3_KEY,0);
-//        switch (lastKeyType){
-//            case 1: mainLayer.addView(date$time);break;
-//            case 2: mainLayer.addView(numSpinner);break;
-//            case 3: mainLayer.addView(textPicker);break;
-//            case 0: lastKeyType = 2;mainLayer.addView(numSpinner);break;
-//        }
+        switch (lastKeyType){
+            case 1: mainLayer.addView(date$time);break;
+            case 2: mainLayer.addView(numSpinner);break;
+            case 3: mainLayer.addView(textPicker);break;
+            case 0: lastKeyType = 2;mainLayer.addView(numSpinner);break;
+        }
         botText.setText(datePicker.getMinDate().toString());
         shref.registerOnSharedPreferenceChangeListener(this);
         if (setting3key==1) {
@@ -225,8 +225,7 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
                     if(setting1key == 0 ) {
                         botText.setText(AESCrypt.encrypt(key, topText.getText().toString()));
                     }else if(setting1key == 1) {
-                        botText.setText(key);
-//                        botText.setText("enigma://" + AESCrypt.encrypt(key, topText.getText().toString()));
+                        botText.setText("enigma://" + AESCrypt.encrypt(key, topText.getText().toString()));
                     }
                 } catch (GeneralSecurityException e) {
                     e.printStackTrace();
@@ -279,8 +278,8 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
                break;
            case SETTING_2_KEY: setting2key = sharedPreferences.getInt(key,0);
                if(setting2key==1){
-                   botText.setLinksClickable(true);
                    Linkify.addLinks(botText, Linkify.ALL);
+                   botText.setLinksClickable(true);
                }else if(setting2key==0){
                    botText.setLinksClickable(false);
                }
