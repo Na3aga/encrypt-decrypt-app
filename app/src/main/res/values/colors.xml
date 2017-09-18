@@ -5,4 +5,5 @@
     <color name="colorPrimaryMenu">#4900061d</color>
     <color name="colorPrimaryDark">#e81c1c1c</color>
     <color name="colorAccent">#fa684a</color>
+    <color name="status">#9d000000</color>
 </resources>

@@ -30,6 +30,7 @@ public class MenuActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.options_layout);
         ScrollView scrollView = (ScrollView) findViewById(R.id.scrollView);
+        getWindow().setStatusBarColor(getResources().getColor(R.color.status));
         scrollView.setVerticalScrollBarEnabled(false);
         Switch switch1,switch2,switch3;
         switch1 = (Switch) findViewById(R.id.switch1);
