@@ -13,7 +13,7 @@
     <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:iosched="http://schemas.android.com/apk/res-auto"
         android:id="@+id/toolbar_actionbar"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:background="#9d000000"
         android:layout_height="wrap_content"
         app:layout_constraintRight_toRightOf="parent"
@@ -27,7 +27,7 @@
             app:layout_constraintRight_toLeftOf="@+id/buttonCenter"
             android:id="@+id/buttonLeft"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintBottom_toBottomOf="@id/toolbar_actionbar"
+            app:layout_constraintBottom_toBottomOf="@+id/toolbar_actionbar"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginTop="8dp" />
         <TextView
@@ -36,7 +36,7 @@
             app:layout_constraintRight_toRightOf="parent"
             android:id="@+id/buttonRight"
             app:layout_constraintLeft_toRightOf="@+id/buttonCenter"
-            app:layout_constraintBottom_toBottomOf="@id/toolbar_actionbar"
+            app:layout_constraintBottom_toBottomOf="@+id/toolbar_actionbar"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginTop="8dp" />
         <TextView
@@ -59,8 +59,9 @@
     android:layout_height="0dp"
     app:layout_constraintRight_toRightOf="parent"
     app:layout_constraintLeft_toLeftOf="parent"
-    app:layout_constraintTop_toBottomOf="@id/toolbar_actionbar"
-    app:layout_constraintBottom_toBottomOf="parent">
+    app:layout_constraintTop_toBottomOf="@+id/toolbar_actionbar"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintHorizontal_bias="0.0">
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -209,6 +210,27 @@
         android:layout_marginTop="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp" />
+    <View
+        android:id="@+id/rectangleMenu4"
+        android:layout_width="0dp"
+        android:layout_height="45dp"
+        android:background="@color/colorPrimaryMenu"
+        android:visibility="visible"
+        app:layout_constraintTop_toBottomOf="@+id/text3"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginTop="8dp"/>
+    <View
+        android:id="@+id/rectangleMenu5"
+        android:layout_width="0dp"
+        android:layout_height="45dp"
+        android:background="@color/colorPrimaryMenu"
+        android:visibility="visible"
+        app:layout_constraintTop_toBottomOf="@+id/rectangleMenu4"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="40dp"/>
 
 
 
@@ -219,7 +241,7 @@
         android:id="@+id/guideline1"
         app:layout_constraintGuide_percent="0.12"
         android:orientation="horizontal"
-        tools:layout_editor_absoluteY="83dp"
+        tools:layout_editor_absoluteY="139dp"
         tools:layout_editor_absoluteX="0dp" />
 
 
@@ -233,7 +255,7 @@
         android:id="@+id/guidelineV2"
         app:layout_constraintGuide_percent="0.95"
         android:orientation="vertical"
-        tools:layout_editor_absoluteY="25dp"
+        tools:layout_editor_absoluteY="81dp"
         tools:layout_editor_absoluteX="365dp" />
     <android.support.constraint.Guideline
         android:layout_width="wrap_content"
@@ -241,7 +263,7 @@
         android:id="@+id/guidelineV1"
         app:layout_constraintGuide_percent="0.1"
         android:orientation="vertical"
-        tools:layout_editor_absoluteY="25dp"
+        tools:layout_editor_absoluteY="81dp"
         tools:layout_editor_absoluteX="39dp" />
 
 

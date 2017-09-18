@@ -163,7 +163,6 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
             case 3: mainLayer.addView(textPicker);break;
             case 0: lastKeyType = 2;mainLayer.addView(numSpinner);break;
         }
-        botText.setText(datePicker.getMinDate().toString());
         shref.registerOnSharedPreferenceChangeListener(this);
         if (setting3key==1) {
             Thread thread = new Thread(new MyRunnable());
@@ -217,6 +216,7 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
             case R.id.imageButtonPlay :
                 try {
                     String key = "";
+                    datePicker.setDefaultDate(datePicker.getMinDate());
                     switch (lastKeyType){
                         case 1:key=getDateKey();break;
                         case 2:key=getNumberKey();break;
