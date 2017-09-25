@@ -1,0 +1,42 @@
+<resources>
+    <string name="punct1">Как зашифровать?</string>
+    <string name="punct2">Как расшифровать?</string>
+    <string name="punct3">Настройки</string>
+    <string name="how_to_enc">Как зашифровать текст?\n
+1. В верхнем поле введите текст либо вставьте его из буфера обмена нажав на кнопку «+»\n
+2. Укажите ключ шифрования (это «фраза», «дата» или «трёх значный код»)\n
+3. Нажмите кнопку «Зашифровать» чтоб зашифровать текст\n\n
+    Зашифрованным текстом появившемся в нижнем поле
+можно «Поделиться через мессенджер» либо «Скопировать текст в буфер обмена»</string>
+    <string name="how_to_dec"
+        >Как расшифровать текст?\n
+1. Кнопкой «+» вставьте зашифрованный текст из буфера обмена в верхнее поле\n
+2. Укажите ключ шифрования (это «фраза», «дата» или «трёх значный код»)\n
+3. Нажмите кнопку «Расшифровать» (верхняя панель справа) чтоб расшифровать текст\n\n
+    Расшифрованный текст появится в нижнем поле</string>
+    <string name="Copied">Текст скопирован в буфер!</string>
+    <string name="share">отправить с помощью</string>
+    <string name="menu">Меню</string>
+    <string name="help">Помощь</string>
+    <string name="dateTime">Дата и время</string>
+    <string name="pin">PIN-код</string>
+    <string name="stringKey">Кодовое слово</string>
+    <string name="cancel">Отмена</string>
+    <string name="menuTitle">Выберите способ ввода ключа</string>
+    <string name="helpTitle">Инструкция по применению</string>
+    <string name="activeLink">Активная ссылка</string>
+    <string name="activeLinkDesc">В начало зашифрованного текста добавляется "enigma://", это очень удобно для получателя. Получателю достаточно будет нажать на зашифрованный текст в любом мессенджере, после чего откроется приложение Enigma и шифр автоматический будет вставлен в верхнее поле. Поддерживается с Enigma 2.0.</string>
+    <string name="buttomTitles">Надписи кнопок</string>
+    <string name="buttonTitlesDesc">Надписи кнопок - показывает на 2 секунды надписи кнопок "МЕНЮ" и "Помощь" при запуске приложение.</string>
+    <string name="Detector">Детектор данных</string>
+    <string name="DetectorDesc">Если поле с расшифрованным текстом содержит URL-ссылку, вы можете кликнуть по ней и перейти в браузер; если в тексте есть адрес - переход к карте и т.д.</string>
+    <string name="done">Готово</string>
+    <string name="options">Настройки</string>
+    <string name="anotherOS">Другие платформы</string>
+    <string name="uniLink">Универсальная ссылка - http://enigma.app.link</string>
+    <string name="mac">Enigma.macOS</string>
+    <string name="iphone">Enigma.iOS</string>
+    <string name="error">Ошибка расшифровки: не верный ключ или зашифрованный текст скопирован не полностью</string>
+
+
+</resources>

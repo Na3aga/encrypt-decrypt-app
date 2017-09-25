@@ -1,16 +1,46 @@
 <resources>
-    <string name="app_name">encrypt-decrypt</string>
-    <string name="how_to_enc">Как зашифровать текст?\n
-1. В верхнем поле введите текст либо вставьте его из буфера обмена нажав на кнопку «+»\n
-2. Укажите ключ шифрования (это «фраза», «дата» или «трёх значный код»)\n
-3. Нажмите кнопку «Зашифровать» чтоб зашифровать текст\n\n
-    Зашифрованным текстом появившемся в нижнем поле
-можно «Поделиться через мессенджер» либо «Скопировать текст в буфер обмена»</string>
+    <string name="punct1">How to encrypt?</string>
+    <string name="punct2">How to decrypt?</string>
+    <string name="punct3">Settings</string>
+    <string name="app_name" translatable="false">Enigma</string>
+    <string name="how_to_enc">How to encrypt text?\n
+1. In the top box, type the text or paste it from the clipboard by clicking on the «+»\n
+2. Specify the encryption key (this is a phrase, a date, or a three-digit code)\n
+3. Click the «Encrypt» button (at right of the top panel) to encrypt the text\n\n
+
+Encrypted text appeared in the bottom field
+You can "Share via messenger" or "Copy text to clipboard"</string>
     <string name="how_to_dec"
-        >Как расшифровать текст?\n
-1. Кнопкой «+» вставьте зашифрованный текст из буфера обмена в верхнее поле\n
-2. Укажите ключ шифрования (это «фраза», «дата» или «трёх значный код»)\n
-3. Нажмите кнопку «Расшифровать» (верхняя панель справа) чтоб расшифровать текст\n\n
-    Расшифрованный текст появится в нижнем поле</string>
+        >How to decrypt text?\n
+1. Use the «+» button to paste the encrypted text from the clipboard into the top box\n
+2. Specify the encryption key (this is a phrase, a date, or a three-digit code)\n
+3. Click the «Decrypt» button (center of the top panel) to decrypt the text\n\n
+
+Decrypted text will appear in the bottom box"</string>
+    <string name="Copied">Text coppied to clipboard!</string>
+    <string name="share">sent with</string>
+    <string name="menu">Menu</string>
+    <string name="help">Help</string>
+    <string name="dateTime">Date and Time</string>
+    <string name="pin">PIN</string>
+    <string name="stringKey">Pass phrase</string>
+    <string name="cancel">Cancel</string>
+    <string name="menuTitle">Select the encryption key</string>
+    <string name="helpTitle">Instructions for use</string>
+    <string name="activeLink">Active link</string>
+    <string name="activeLinkDesc">The beginning of the encrypted text is added "enigma: //", it is very convenient for the recipient. The recipient will only need to click on the encrypted text in any messenger, after which the Enigma application will open and the auto cipher will be inserted into the top field. Supported since Enigma 2.0.</string>
+    <string name="buttomTitles">Titles on the buttons</string>
+    <string name="buttonTitlesDesc">Title on the buttons - Shows for 2 seconds the button labels, "MENU" and "HELP" when the application is launched</string>
+    <string name="Detector">Data Detector</string>
+    <string name="DetectorDesc">If the decrypted text contains a url link - you can click and go to the browser; If there is an address in the text - then to the map, etc.</string>
+    <string name="done">Done</string>
+    <string name="options">Options</string>
+    <string name="anotherOS">Other platforms</string>
+    <string name="uniLink">Universal link - http://enigma.app.link</string>
+    <string name="mac">Enigma.macOS</string>
+    <string name="iphone">Enigma.iOS</string>
+    <string name="error">Decryption error: not a valid key or encrypted text copied incompletely</string>
+
+
 
 </resources>

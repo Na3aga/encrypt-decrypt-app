@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="freelance.encrypt_decrypt.MainActivity"
+    android:id="@+id/error_lay"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="10dp"
+    android:alpha="0.9"
+    android:layout_margin="10dp"
+    app:cardBackgroundColor="#d72121">
+<TextView
+    android:background="#d72121"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="@string/error"
+    android:textColor="#fff"
+    android:textSize="16sp"
+    android:layout_marginTop="8dp"
+    android:layout_marginBottom="8dp"
+    android:layout_marginRight="8dp"
+    android:layout_marginLeft="8dp"/>
+</android.support.v7.widget.CardView>

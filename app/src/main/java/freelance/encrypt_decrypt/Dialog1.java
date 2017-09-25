@@ -15,6 +15,7 @@ import android.support.v7.app.AlertDialog;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.FrameLayout;
 
 /**
@@ -28,6 +29,7 @@ public class Dialog1 extends DialogFragment implements View.OnClickListener {
     final private FrameLayout numSpinner;
     final private TextInputLayout textPicker;
     private int keytype;
+    private int Firstkeytype;
 
 
     @Nullable
@@ -53,13 +55,24 @@ public class Dialog1 extends DialogFragment implements View.OnClickListener {
         gd.setCornerRadius(10);
         gd.setStroke(1, Color.argb(96,255,255,255));
         v.findViewById(R.id.keytype1).setBackground(gd);
+        Button button =(Button) v.findViewById(R.id.keytype1);
+        button.setSingleLine(false);
         v.findViewById(R.id.keytype1).setOnClickListener(this);
+
         v.findViewById(R.id.keytype2).setBackground(gd);
+        button =(Button) v.findViewById(R.id.keytype2);
+        button.setSingleLine(false);
         v.findViewById(R.id.keytype2).setOnClickListener(this);
+
         v.findViewById(R.id.keytype3).setBackground(gd);
+        button =(Button) v.findViewById(R.id.keytype3);
+        button.setSingleLine(false);
         v.findViewById(R.id.keytype3).setOnClickListener(this);
-        v.findViewById(R.id.buttonOk).setBackground(gd);
-        v.findViewById(R.id.buttonOk).setOnClickListener(this);
+
+        v.findViewById(R.id.buttonCancel).setBackground(gd);
+        button =(Button) v.findViewById(R.id.buttonCancel);
+        button.setSingleLine(false);
+        v.findViewById(R.id.buttonCancel).setOnClickListener(this);
 
         Dialog dialog = builder.create();
         dialog.getWindow().setGravity(Gravity.BOTTOM);
@@ -72,11 +85,13 @@ public class Dialog1 extends DialogFragment implements View.OnClickListener {
         super.onActivityCreated(savedInstanceState);
     }
 
-    public Dialog1(Activity activity,FrameLayout dt,FrameLayout ns,TextInputLayout tp) {
+    public Dialog1(Activity activity,FrameLayout dt,FrameLayout ns,TextInputLayout tp,int fkt) {
         mainAct = activity;
         date$time = dt;
         numSpinner = ns;
         textPicker = tp;
+        Firstkeytype=fkt;
+
     }
 
     @Override
@@ -91,6 +106,7 @@ public class Dialog1 extends DialogFragment implements View.OnClickListener {
                    ((ConstraintLayout)mainAct.findViewById(R.id.cnstrnt)).addView(date$time);
                    keytype =1;
                    ((MainActivity)getActivity()).doPositiveClick(keytype);
+                   onDismiss(getDialog());
                    break;
 
                case R.id.keytype2:
@@ -101,6 +117,7 @@ public class Dialog1 extends DialogFragment implements View.OnClickListener {
                    ((ConstraintLayout)mainAct.findViewById(R.id.cnstrnt)).addView(numSpinner);
                    keytype =2;
                    ((MainActivity)getActivity()).doPositiveClick(keytype);
+                   onDismiss(getDialog());
                    break;
                case R.id.keytype3:
 
@@ -110,8 +127,20 @@ public class Dialog1 extends DialogFragment implements View.OnClickListener {
                    ((ConstraintLayout)mainAct.findViewById(R.id.cnstrnt)).addView(textPicker);
                    keytype =3;
                    ((MainActivity)getActivity()).doPositiveClick(keytype);
+                   onDismiss(getDialog());
                    break;
-               case R.id.buttonOk:
+               case R.id.buttonCancel:
+
+
+                   ((ConstraintLayout)mainAct.findViewById(R.id.cnstrnt)).removeView(date$time);
+                   ((ConstraintLayout)mainAct.findViewById(R.id.cnstrnt)).removeView(numSpinner);
+                   ((ConstraintLayout)mainAct.findViewById(R.id.cnstrnt)).removeView(textPicker);
+                   switch (Firstkeytype){
+                       case 1:((ConstraintLayout)mainAct.findViewById(R.id.cnstrnt)).addView(date$time); break;
+                       case 2:((ConstraintLayout)mainAct.findViewById(R.id.cnstrnt)).addView(numSpinner);break;
+                       case 3:((ConstraintLayout)mainAct.findViewById(R.id.cnstrnt)).addView(textPicker);break;
+                   }
+                   keytype =Firstkeytype;
                    ((MainActivity)getActivity()).doPositiveClick(keytype);
                    getDialog().dismiss();
                    break;
@@ -122,6 +151,7 @@ public class Dialog1 extends DialogFragment implements View.OnClickListener {
 
     @Override
     public void onDismiss(DialogInterface dialog) {
+
         super.onDismiss(dialog);
     }
 

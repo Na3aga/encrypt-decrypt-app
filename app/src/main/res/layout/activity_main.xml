@@ -291,7 +291,8 @@
         android:id="@+id/buttonMenu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="меню"
+        android:text=""
+        android:textSize="16sp"
         app:layout_constraintRight_toLeftOf="@+id/imageButtonX"
         app:layout_constraintLeft_toRightOf="@+id/imageButtonSent"
         app:layout_constraintBottom_toBottomOf="parent" />
@@ -300,7 +301,8 @@
         android:id="@+id/buttonHelp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="помощь"
+        android:text=""
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toRightOf="@+id/imageButtonX"
         app:layout_constraintRight_toLeftOf="@+id/imageButtonCopy" />

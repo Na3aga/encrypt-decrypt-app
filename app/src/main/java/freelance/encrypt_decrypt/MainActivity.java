@@ -14,8 +14,13 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputFilter;
 import android.text.util.Linkify;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.view.animation.AlphaAnimation;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -113,9 +118,14 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
         buttonMenu = (Button) findViewById(R.id.buttonMenu);
         buttonMenu.getBackground().setAlpha(0);
         buttonMenu.setOnClickListener(this);
+        buttonMenu.setSingleLine(false);
+        buttonMenu.setText(R.string.menu);
         buttonHelp = (Button) findViewById(R.id.buttonHelp);
         buttonHelp.getBackground().setAlpha(0);
         buttonHelp.setOnClickListener(this);
+        buttonHelp.setText(R.string.help);
+        buttonHelp.setSingleLine(false);
+
 
         date$time = (FrameLayout) findViewById(R.id.dateANDtime);
         datePicker= (SingleDateAndTimePicker) findViewById(R.id.singledate);
@@ -148,7 +158,6 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
         editText.setFilters(FilterArray);
         mainLayer.removeView(textPicker);
 
-        dialog1 = new Dialog1(this,date$time,numSpinner,textPicker);
 
 
         Context context = getApplicationContext();
@@ -205,9 +214,10 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
                 ClipboardManager clipboard = (ClipboardManager)getSystemService(Context.CLIPBOARD_SERVICE);
                 ClipData clip = ClipData.newPlainText("your_text_to_be_copied", botText.getText());
                 clipboard.setPrimaryClip(clip);
-                Toast toast = Toast.makeText(this, "Text coppied to clipboard!", Toast.LENGTH_SHORT);
+                Toast toast = Toast.makeText(this, R.string.Copied, Toast.LENGTH_SHORT);
                 toast.show(); break;
             case R.id.buttonMenu:
+                dialog1 = new Dialog1(this,date$time,numSpinner,textPicker,lastKeyType);
                 dialog1.show(getFragmentManager(),"dlg1");break;
             case R.id.buttonHelp:
                 dialog2 = null;
@@ -230,27 +240,49 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
                 } catch (GeneralSecurityException e) {
                     e.printStackTrace();
                 }
-
+                InputMethodManager inputManager = (InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE);
+                inputManager.hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
                 break;
             case R.id.imageButtonSearch :
+                InputMethodManager inputManager1 = (InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE);
+                inputManager1.hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+                getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
                 try {
-                String key = "";
-                switch (lastKeyType){
-                    case 1:key=getDateKey();break;
-                    case 2:key=getNumberKey();break;
-                    case 3:key=getStrokeKey();break;
-                }
-                String text = topText.getText().toString();
-                    if(text.length()>8) {
-                        String ls = text.substring(0, 9);
-                        if (ls.contains("enigma://")) {
-                            text = text.substring(9, text.length());
-                        }
+                    String key = "";
+                    switch (lastKeyType) {
+                        case 1:
+                            key = getDateKey();
+                            break;
+                        case 2:
+                            key = getNumberKey();
+                            break;
+                        case 3:
+                            key = getStrokeKey();
+                            break;
                     }
-                    botText.setText(AESCrypt.decrypt(key,text));
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                    if (key.length()==0) {
+                        Toast toast1 =new  Toast(getApplicationContext());
+                        toast1.setDuration(Toast.LENGTH_LONG);
+                        toast1.setGravity(Gravity.TOP,0,0);
+                        LayoutInflater inflater = getLayoutInflater();
+                        View layout = inflater.inflate(R.layout.error,
+                                (ViewGroup) findViewById(R.id.error_lay));
+                        toast1.setView(layout);
+
+                        toast1.show();
+                    } else {
+                        String text = topText.getText().toString();
+                        if (text.length() > 8) {
+                            String ls = text.substring(0, 9);
+                            if (ls.contains("enigma://")) {
+                                text = text.substring(9, text.length());
+                            }
+                        }
+                        botText.setText(AESCrypt.decrypt(key, text));
+                    }
+                    } catch(Exception e){
+                        e.printStackTrace();
+                    }
 
                 break;
             case R.id.imageButtonX :
@@ -264,7 +296,7 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
                 String shareBody = botText.getText().toString();
                 sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "enigma");
                 sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
-                startActivity(Intent.createChooser(sharingIntent, "sent with"));
+                startActivity(Intent.createChooser(sharingIntent, getString(R.string.share)));
 
                 break;
 
@@ -333,6 +365,35 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
 
         }
     }
+
+    @Override
+    public void finish() {
+        mainLayer = null;
+        topText = null;
+        botText = null;
+        buttonMenu = null;
+        buttonHelp = null;
+        dialog1 = null;
+        dialog2 = null;
+        SharedPreferences shref = PreferenceManager.getDefaultSharedPreferences(this);
+        shref.edit().putInt(LAST_KEY_TYPE,lastKeyType).apply();
+        super.finish();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        SharedPreferences shref = PreferenceManager.getDefaultSharedPreferences(this);
+        lastKeyType=shref.getInt(LAST_KEY_TYPE,0);
+    }
+    @Override
+    protected void onPause() {
+        super.onPause();
+        SharedPreferences shref = PreferenceManager.getDefaultSharedPreferences(this);
+        shref.edit().putInt(LAST_KEY_TYPE,lastKeyType).apply();
+    }
+
+
     @Override
     protected void onDestroy() {
         mainLayer = null;
@@ -343,8 +404,9 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
         dialog1 = null;
         dialog2 = null;
         SharedPreferences shref = PreferenceManager.getDefaultSharedPreferences(this);
-        shref.edit() .putInt(LAST_KEY_TYPE,lastKeyType).apply();
+        shref.edit().putInt(LAST_KEY_TYPE,lastKeyType).apply();
         super.onDestroy();
+        finish();
     }
     public void doPositiveClick(int value){
         lastKeyType = value;

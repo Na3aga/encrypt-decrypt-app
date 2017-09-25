@@ -17,7 +17,7 @@
         android:gravity="center"
         android:id="@+id/enigmaTitle"
         android:textColor="#fff"
-        android:text="Enigma"
+        android:text="@string/helpTitle"
         android:textSize="15sp"
         android:layout_marginBottom="5dp"/>
 
@@ -30,16 +30,16 @@
             android:id="@+id/keytype11"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="#1E90FF"
+            android:textColor="#42a2ff"
             android:layout_margin="2dp"
-            android:text="How to encrypt?" />
+            android:text="@string/punct1" />
 
        <TextView
             android:gravity="center"
             android:id="@+id/keytype12"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="#1E90FF"
+           android:textColor="#42a2ff"
             android:layout_margin="2dp"
             android:text="@string/how_to_enc" />
     </FrameLayout>
@@ -53,15 +53,15 @@
         android:id="@+id/keytype21"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="#1E90FF"
+        android:textColor="#42a2ff"
         android:layout_margin="2dp"
-        android:text="How to decrypt?" />
+        android:text="@string/punct2" />
         <TextView
             android:gravity="center"
             android:id="@+id/keytype22"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="#1E90FF"
+            android:textColor="#42a2ff"
             android:layout_margin="2dp"
             android:text="@string/how_to_dec" />
     </FrameLayout>
@@ -71,18 +71,18 @@
         android:id="@+id/keytype3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="#1E90FF"
+        android:textColor="#42a2ff"
         android:layout_margin="2dp"
-        android:text="Settings" />
+        android:text="@string/punct3" />
     <Button
 
         android:id="@+id/cancel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="#1E90FF"
+        android:textColor="#42a2ff"
         android:layout_marginTop="20dp"
         android:layout_marginLeft="2dp"
         android:layout_marginRight="2dp"
-        android:text="Cancel" />
+        android:text="@string/cancel" />
 
 </LinearLayout>

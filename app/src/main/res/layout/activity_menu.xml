@@ -18,42 +18,45 @@
         android:gravity="center"
         android:id="@+id/enigmaTitle"
         android:textColor="#fff"
-        android:text="Enigma"
+        android:text="@string/menuTitle"
         android:layout_marginBottom="5dp"/>
     <Button
         android:id="@+id/keytype1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
-        android:textColor="#1E90FF"
+        android:text="@string/dateTime"
+        android:textColor="#42a2ff"
         android:layout_margin="2dp"
-        android:text="Date and Time key" />
+         />
 
     <Button
         android:id="@+id/keytype2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="#1E90FF"
+        android:textColor="#42a2ff"
         android:layout_margin="2dp"
-        android:text="Number key" />
+        android:text="@string/pin"
+        />
 
     <Button
         android:id="@+id/keytype3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="#1E90FF"
+        android:textColor="#42a2ff"
         android:layout_margin="2dp"
-        android:text="Stroke key" />
+        android:text="@string/stringKey"
+         />
 
     <Button
-            android:id="@+id/buttonOk"
+            android:id="@+id/buttonCancel"
+            android:text="@string/cancel"
             android:layout_marginTop="20dp"
             android:layout_marginLeft="2dp"
             android:layout_marginRight="2dp"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:textColor="#1E90FF"
-            android:text="Ok"
+        android:textColor="#42a2ff"
+
 
             />
 
